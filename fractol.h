@@ -6,14 +6,15 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 10:30:17 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/01/18 12:18:57 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:31:34 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include </home/vasili/Documents/minilibx-linux/mlx.h>
+# include </home/vasili/Documents/minilibx-linux/mlx.h>
+# include <stdio.h>
 
 typedef struct s_data {
 	void		*mlx;
@@ -35,17 +36,17 @@ typedef struct s_data {
 	int			fixated;
 }              t_data;
 
-typedef struct complex_number
+typedef struct s_complex
 {
 	long double	realpart;
 	long double	imagpart;	
-}				complex;
+}	t_complex;
 
-long double	creal(complex z);
-long double	cimag(complex z);
-complex		multiply(complex z1, complex z2);
-complex		add(complex z1, complex z2);
-long double abs(complex z);
+long double	complex_real(t_complex z);
+long double	complex_imag(t_complex z);
+t_complex		multiply(t_complex z1, t_complex z2);
+t_complex		add(t_complex z1, t_complex z2);
+long double complex_abs(t_complex z);
 int	create_trgb(int t, int r, int g, int b);
 
 #endif

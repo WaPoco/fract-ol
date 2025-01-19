@@ -3,7 +3,8 @@ MLX_DIC=/home/vasili/Documents/minilibx-linux/.
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -I$(MLX_DIC)
 LFLAGS=-L$(MLX_DIC) -lmlx -lX11 -lXext -lm
-SRCS=t.c
+HEADER=fractol.h
+SRCS=complex.c fractol.c
 OBJS=$(SRCS:.c=.o)
 
 all: $(NAME)
@@ -11,7 +12,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LFLAGS) -o $(NAME)
 
-%.o: %.c
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
