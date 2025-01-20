@@ -6,7 +6,7 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 10:30:17 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/01/19 15:31:34 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:23:22 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FRACTOL_H
 
 # include </home/vasili/Documents/minilibx-linux/mlx.h>
-# include <stdio.h>
+# include "ft_printf.h"
+# include "libft.h"
 
 typedef struct s_data {
 	void		*mlx;
@@ -34,6 +35,7 @@ typedef struct s_data {
 	long double	fixed_x;
 	long double	fixed_y;
 	int			fixated;
+	char		option;
 }              t_data;
 
 typedef struct s_complex

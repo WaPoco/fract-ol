@@ -2,7 +2,7 @@ NAME=fractol
 MLX_DIC=/home/vasili/Documents/minilibx-linux/.
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -I$(MLX_DIC)
-LFLAGS=-L$(MLX_DIC) -lmlx -lX11 -lXext -lm
+LFLAGS=-L. -L$(MLX_DIC) -lmlx -lX11 -lXext -lm -lftprintf -lft
 HEADER=fractol.h
 SRCS=complex.c fractol.c
 OBJS=$(SRCS:.c=.o)
