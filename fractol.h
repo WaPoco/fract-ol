@@ -6,7 +6,7 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 10:30:17 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/01/20 11:23:22 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/01/21 19:22:05 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include </home/vasili/Documents/minilibx-linux/mlx.h>
 # include "ft_printf.h"
 # include "libft.h"
+# include "math.h"
+
+typedef struct s_complex
+{
+	long double	realpart;
+	long double	imagpart;	
+}	t_complex;
 
 typedef struct s_data {
 	void		*mlx;
@@ -36,13 +43,9 @@ typedef struct s_data {
 	long double	fixed_y;
 	int			fixated;
 	char		option;
+	t_complex	c;
 }              t_data;
 
-typedef struct s_complex
-{
-	long double	realpart;
-	long double	imagpart;	
-}	t_complex;
 
 long double	complex_real(t_complex z);
 long double	complex_imag(t_complex z);
