@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 10:30:13 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/01/22 19:57:57 by vpogorel         ###   ########.fr       */
+/*   Created: 2025/02/21 21:18:00 by vpogorel          #+#    #+#             */
+/*   Updated: 2025/02/23 22:10:53 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,14 @@ static int	render_next_frame(t_data *data)
 static void	show_options(t_data *data, int args0, char **args)
 {
 	if ((args0 == 2) && (ft_strlen(args[1]) == 1) 
-		&& (args[1][0] == '1' || args[1][0] == '2' || args[1][0] == '3'))
+		&& (args[1][0] == '0' ))
 	{
-		data->option = args[1][0];
-		if (data->option == '1')
-		{
-			data->c.realpart = 0;
-			data->c.imagpart = 0;
-		}
-		else if (data->option == '2')
-		{
-			data->c.realpart = 0.5;
-			data->c.imagpart = 0.55;
-		}
-		else if (data->option == '3')
-		{
-			data->c.realpart = 0;
-			data->c.imagpart = -1;
-		}
+		data->option = 0;
+		data->c.realpart = 0.7;
+		data->c.imagpart = 0.5;
 		return ;
 	}
-	ft_printf("Choose a fractal!\n1: Mandelbrot \n");
-	ft_printf("2: Turtle \n3: Island c=(0,-1)\n");
+	ft_printf("0: c=(0.7,0.5)\n");
 	exit(0);
 }
 
@@ -113,3 +99,4 @@ int	main(int args0, char **args)
 	mlx_loop(data.mlx);
 	return (0);
 }
+
