@@ -6,11 +6,35 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:53:01 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/02/23 22:04:47 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:13:44 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	key_arrow(int key, t_data *data)
+{
+	if (key == 65363)
+	{
+		data->real_min += 0.1 * data->zoom;
+		data->real_max += 0.1 * data->zoom;
+	}
+	if (key == 65362)
+	{
+		data->imag_min += 0.1 * data->zoom;
+		data->imag_max += 0.1 * data->zoom;
+	}
+	if (key == 65361)
+	{
+		data->real_min -= 0.1 * data->zoom;
+		data->real_max -= 0.1 * data->zoom;
+	}
+	if (key == 65364)
+	{
+		data->imag_min -= 0.1 * data->zoom;
+		data->imag_max -= 0.1 * data->zoom;
+	}
+}
 
 int	close_window(t_data *data)
 {
@@ -21,10 +45,12 @@ int	close_window(t_data *data)
 
 void	click_button(int x, int y, int button, t_data *data)
 {
-    data->fixed_x = data->real_min +
-        (data->real_max - data->real_min) * (x / (double)data->win_width);
-    data->fixed_y = data->imag_max - 
-        (data->imag_max - data->imag_min) * (y / (double)data->win_height);
+	data->fixed_x = data->real_min
+		+ (data->real_max - data->real_min)
+		* (x / (double)data->win_width);
+	data->fixed_y = data->imag_max
+		- (data->imag_max - data->imag_min)
+		* (y / (double)data->win_height);
 	data->fixated = 1;
 	if (button == 3)
 		data->t = style();
@@ -61,25 +87,6 @@ int	key_press(int key, t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 		exit(0);
 	}
-	if (key == 65361)
-    {
-        data->real_min -= 0.1;
-		data->real_max -= 0.1;
-    }
-	if (key == 65362)
-    {
-        data->imag_min += 0.1;
-        data->imag_max += 0.1;
-    }
-	if (key == 65363)
-    {
-        data->real_min += 0.1;
-		data->real_max += 0.1;
-    }
-	if (key == 65364)
-    {
-        data->imag_min -= 0.1;
-        data->imag_max -= 0.1;
-    }
+	key_arrow(key, data);
 	return (0);
 }

@@ -6,11 +6,40 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 10:30:13 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/01/22 19:57:57 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:03:59 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	init_check_error(t_data *data)
+{
+	if (!data->mlx)
+	{
+		ft_printf("Error: mlx_init() failed\n");
+		exit(1);
+	}
+	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height, 
+			"Fractol");
+	if (!data->win)
+	{
+		ft_printf("Error: mlx_new_window() failed\n");
+		exit(1);
+	}
+	data->img = mlx_new_image(data->mlx, data->win_width, data->win_height);
+	if (!data->img)
+	{
+		ft_printf("Error: mlx_new_window() failed\n");
+		exit(1);
+	}
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, 
+			&data->line_length, &data->endian);
+	if (!data->addr)
+	{
+		ft_printf("Error: mlx_get_data_addr\n");
+		exit(1);
+	}
+}
 
 int	iteration(t_complex z_0, t_complex c, t_data *data)
 {
@@ -38,7 +67,6 @@ static int	render_next_frame(t_data *data)
 	int			k;
 	t_complex	p;
 
-	mlx_clear_window(data->mlx, data->win);
 	d[0] = (data->real_max - data->real_min) / data->win_width;
 	d[1] = (data->imag_max - data->imag_min) / data->win_height;
 	i = 0;
@@ -83,7 +111,7 @@ static void	show_options(t_data *data, int args0, char **args)
 	}
 	ft_printf("Choose a fractal!\n1: Mandelbrot \n");
 	ft_printf("2: Turtle \n3: Island c=(0,-1)\n");
-	exit(0);
+	exit(1);
 }
 
 int	main(int args0, char **args)
@@ -91,8 +119,8 @@ int	main(int args0, char **args)
 	t_data	data;
 
 	show_options(&data, args0, args);
-	data.win_height = 1000;
-	data.win_width = 1000;
+	data.win_height = 750;
+	data.win_width = 750;
 	data.imag_min = -2;
 	data.imag_max = 2;
 	data.real_min = -2;
@@ -101,11 +129,7 @@ int	main(int args0, char **args)
 	data.t = style();
 	data.fixated = 0;
 	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, data.win_width, data.win_height, 
-			"Fractol");
-	data.img = mlx_new_image(data.mlx, data.win_width, data.win_height);
-	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, 
-			&data.line_length, &data.endian);
+	init_check_error(&data);
 	mlx_hook(data.win, 2, 1L << 0, key_press, &data);
 	mlx_hook(data.win, 4, 1L << 2, mouse_click, &data);
 	mlx_hook(data.win, 17, 1L << 17, close_window, &data);

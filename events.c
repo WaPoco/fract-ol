@@ -6,7 +6,7 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:09:20 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/02/21 21:12:24 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:06:42 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	click_button(int x, int y, int button, t_data *data)
 {
 	if (button == 1)
 	{
-		data->fixed_x = data->real_min +
-			(data->real_max - data->real_min) * (x / (double)data->win_width);
-		data->fixed_y = data->imag_max - 
-			(data->imag_max - data->imag_min) * (y / (double)data->win_height);
+		data->fixed_x = data->real_min
+			+ (data->real_max - data->real_min) 
+			* (x / (double)data->win_width);
+		data->fixed_y = data->imag_max 
+			- (data->imag_max - data->imag_min) 
+			* (y / (double)data->win_height);
 		data->fixated = 1;
 	}
 	if (button == 3)
