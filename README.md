@@ -14,6 +14,6 @@ To generate these fractal images, we will use the MiniLibX graphics library. The
 To install the required dependencies, follow these steps:
 
 ```sh
-git clone git@github.com:WaPoco/fract-ol.git
+git clone git@github.com:WaPoco/fract-ol.git fractol
 cd fractol
 make
