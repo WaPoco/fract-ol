@@ -6,7 +6,7 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:53:01 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/02/26 16:13:44 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:49:05 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,14 @@ void	key_arrow(int key, t_data *data)
 int	close_window(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
-	exit(0);
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	free(data->s[0]);
+	free(data->s[1]);
+	free(data->s[2]);
+	free(data->s);
+	exit(1);
 	return (0);
 }
 
@@ -53,7 +60,7 @@ void	click_button(int x, int y, int button, t_data *data)
 		* (y / (double)data->win_height);
 	data->fixated = 1;
 	if (button == 3)
-		data->t = style();
+		data->t = style(data);
 }
 
 int	mouse_click(int button, int x, int y, t_data *data)
@@ -85,6 +92,13 @@ int	key_press(int key, t_data *data)
 	if (65307 == key)
 	{
 		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		free(data->s[0]);
+		free(data->s[1]);
+		free(data->s[2]);
+		free(data->s);
 		exit(0);
 	}
 	key_arrow(key, data);

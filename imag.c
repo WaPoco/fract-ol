@@ -6,33 +6,28 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:09:16 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/02/21 22:25:32 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:39:15 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	*style(void)
+int	*style(t_data *data)
 {
-	int			**t;
 	static int	i;
 
-	t = (int **)malloc(sizeof(int *) * 3);
-	t[0] = (int *)malloc(sizeof(int) * 3);
-	t[1] = (int *)malloc(sizeof(int) * 3);
-	t[2] = (int *)malloc(sizeof(int) * 3);
-	t[0][0] = 2;
-	t[0][1] = 5;
-	t[0][2] = 7;
-	t[1][0] = 3;
-	t[1][1] = 2;
-	t[1][1] = 5;
-	t[2][0] = 7;
-	t[2][1] = 14;
-	t[2][2] = 80;
+	data->s[0][0] = 2;
+	data->s[0][1] = 5;
+	data->s[0][2] = 7;
+	data->s[1][0] = 3;
+	data->s[1][1] = 2;
+	data->s[1][2] = 5;
+	data->s[2][0] = 7;
+	data->s[2][1] = 14;
+	data->s[2][2] = 80;
 	i += 1;
-	i = i % 3; 
-	return (t[i]);
+	i = i % 3;
+	return (data->s[i]);
 }
 
 int	create_trgb(int t, int r, int g, int b)

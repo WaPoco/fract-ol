@@ -6,7 +6,7 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 10:30:17 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/01/22 19:58:38 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:59:52 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef struct s_complex
 	long double	imagpart;	
 }	t_complex;
 
-typedef struct s_data {
+typedef struct s_data
+{
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -43,8 +44,9 @@ typedef struct s_data {
 	long double	fixed_y;
 	int			fixated;
 	char		option;
-	t_complex	c;
 	int			*t;
+	int			**s;
+	t_complex	c;
 }	t_data;
 
 long double	complex_real(t_complex z);
@@ -57,7 +59,7 @@ int			close_window(t_data *data);
 void		click_button(int x, int y, int button, t_data *data);
 int			mouse_click(int button, int x, int y, t_data *data);
 int			key_press(int key, t_data *data);
-int			*style(void);
+int			*style(t_data *data);
 int			create_trgb(int t, int r, int g, int b);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		create_img(t_data *data, t_complex p, int x, int y);

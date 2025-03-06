@@ -6,37 +6,29 @@
 /*   By: vpogorel <vpogorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 21:18:00 by vpogorel          #+#    #+#             */
-/*   Updated: 2025/02/26 16:07:38 by vpogorel         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:53:49 by vpogorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	init_check_error(t_data *data)
+void	error_init_style(t_data *data)
 {
-	if (!data->mlx)
+	data->s = (int **)malloc(sizeof(int *) * 3);
+	data->s[0] = (int *)malloc(sizeof(int) * 3);
+	data->s[1] = (int *)malloc(sizeof(int) * 3);
+	data->s[2] = (int *)malloc(sizeof(int) * 3);
+	if (!data->s || !data->s[0] || !data->s[1] || !data->s[2])
 	{
-		ft_printf("Error: mlx_init() failed\n");
-		exit(1);
-	}
-	data->win = mlx_new_window(data->mlx, data->win_width, data->win_height, 
-			"Fractol");
-	if (!data->win)
-	{
-		ft_printf("Error: mlx_new_window() failed\n");
-		exit(1);
-	}
-	data->img = mlx_new_image(data->mlx, data->win_width, data->win_height);
-	if (!data->img)
-	{
-		ft_printf("Error: mlx_new_window() failed\n");
-		exit(1);
-	}
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, 
-			&data->line_length, &data->endian);
-	if (!data->addr)
-	{
-		ft_printf("Error: mlx_get_data_addr\n");
+		ft_printf("Error: style alloc failed\n");
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		free(data->s[0]);
+		free(data->s[1]);
+		free(data->s[2]);
+		free(data->s);
 		exit(1);
 	}
 }
@@ -88,7 +80,7 @@ static int	render_next_frame(t_data *data)
 
 static void	show_options(t_data *data, int args0, char **args)
 {
-	if ((args0 == 2) && (ft_strlen(args[1]) == 1) 
+	if ((args0 == 2) && (ft_strlen(args[1]) == 1)
 		&& (args[1][0] == '0' ))
 	{
 		data->option = 0;
@@ -104,18 +96,23 @@ int	main(int args0, char **args)
 {
 	t_data	data;
 
+	error_init_style(&data);
 	show_options(&data, args0, args);
-	data.win_height = 1000;
-	data.win_width = 1000;
+	data.win_height = 750;
+	data.win_width = 750;
 	data.imag_min = -2;
 	data.imag_max = 2;
 	data.real_min = -2;
 	data.real_max = 2;
 	data.zoom = 1;
-	data.t = style();
+	data.t = style(&data);
 	data.fixated = 0;
 	data.mlx = mlx_init();
-	init_check_error(&data);
+	data.win = mlx_new_window(data.mlx, data.win_width, data.win_height,
+			"Fractol");
+	data.img = mlx_new_image(data.mlx, data.win_width, data.win_height);
+	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
+			&data.line_length, &data.endian);
 	mlx_hook(data.win, 2, 1L << 0, key_press, &data);
 	mlx_hook(data.win, 4, 1L << 2, mouse_click, &data);
 	mlx_hook(data.win, 17, 1L << 17, close_window, &data);
